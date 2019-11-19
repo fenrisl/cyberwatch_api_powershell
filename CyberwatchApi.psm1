@@ -29,6 +29,13 @@ Param    (
         Add-Type -AssemblyName System.Web
         $query_strings = [System.Web.HttpUtility]::ParseQueryString([String]::Empty)
 
+<<<<<<< HEAD
+=======
+        if ($content.ContainsKey("per_page") -eq $false) {
+            $content.Add("per_page", 100)
+        }
+
+>>>>>>> cve_announcements + api v3 support
         foreach ($key in $content.Keys) {
             $query_strings.Add($key, $content.$key)
         }
@@ -65,10 +72,13 @@ Param    (
     [PARAMETER(Mandatory=$false)][Hashtable]$content = @{}
     )
 
+<<<<<<< HEAD
     if ($content.ContainsKey("per_page") -eq $false) {
         $content.Add("per_page", 100)
     }
 
+=======
+>>>>>>> cve_announcements + api v3 support
     $response = SendApiRequest -api_url $api_url -api_key $api_key -secret_key $secret_key -http_method $http_method -request_URI $request_URI -content $content
 
     if ($response.headers["link"] -match "[?&]page=(\d*)" -and $content.ContainsKey("page") -eq $false) {
@@ -96,6 +106,7 @@ Class CbwApiClient {
     }
 
     [object] request([string]$http_method, [string]$request_URI) {
+<<<<<<< HEAD
         return SendApiRequest -api_url $this.api_url -api_key $this.api_key -secret_key $this.secret_key -http_method $http_method -request_URI $request_URI | ConvertFrom-JSON
     }
 
@@ -108,6 +119,12 @@ Class CbwApiClient {
     }
 
     [object] request_pagination([string]$http_method, [string]$request_URI, [Hashtable]$content) {
+=======
+        return SendApiRequestPagination -api_url $this.api_url -api_key $this.api_key -secret_key $this.secret_key -http_method $http_method -request_URI $request_URI
+    }
+
+    [object] request([string]$http_method, [string]$request_URI, [Hashtable]$content) {
+>>>>>>> cve_announcements + api v3 support
         return SendApiRequestPagination -api_url $this.api_url -api_key $this.api_key -secret_key $this.secret_key -http_method $http_method -request_URI $request_URI -content $content
     }
 
@@ -178,12 +195,20 @@ Class CbwApiClient {
 
     [object] cve_announcements()
     {
+<<<<<<< HEAD
         return $this.request_pagination('GET', "/api/v3/cve_announcements")
+=======
+        return $this.request('GET', "/api/v3/cve_announcements")
+>>>>>>> cve_announcements + api v3 support
     }
 
     [object] cve_announcements([Hashtable]$filter)
     {
+<<<<<<< HEAD
         return $this.request_pagination('GET', "/api/v3/cve_announcements", $filter)
+=======
+        return SendApiRequestPagination -api_url $this.api_url -api_key $this.api_key -secret_key $this.secret_key -http_method 'GET' -request_URI "/api/v3/cve_announcements" -content $filter
+>>>>>>> cve_announcements + api v3 support
     }
 
     [object] users()
