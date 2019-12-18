@@ -143,27 +143,32 @@ Class CbwApiClient {
 
     [object] remote_accesses()
     {
-        return $this.request('GET', '/api/v2/remote_accesses')
+        return $this.request_pagination('GET', '/api/v3/remote_accesses')
+    }
+
+    [object] remote_accesses([Object]$filters)
+    {
+        return $this.request_pagination('GET', '/api/v3/remote_accesses', $filters)
     }
 
     [object] create_remote_access([Object]$content)
     {
-        return $this.request('POST', '/api/v2/remote_accesses', $content)
+        return $this.request('POST', '/api/v3/remote_accesses', $content)
     }
 
     [object] remote_access([string]$id)
     {
-        return $this.request('GET', "/api/v2/remote_accesses/${id}")
+        return $this.request('GET', "/api/v3/remote_accesses/${id}")
     }
 
     [object] update_remote_access([string]$id, [Object]$content)
     {
-        return $this.request('PATCH', "/api/v2/remote_accesses/${id}", $content)
+        return $this.request('PATCH', "/api/v3/remote_accesses/${id}", $content)
     }
 
     [object] delete_remote_access([string]$id)
     {
-        return $this.request('DELETE', "/api/v2/remote_accesses/${id}")
+        return $this.request('DELETE', "/api/v3/remote_accesses/${id}")
     }
 
     [object] groups()
