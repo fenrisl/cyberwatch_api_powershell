@@ -9,7 +9,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: |
-          Install-Module -Name PSScriptAnalyzer -Force
+          git clone https://github.com/PowerShell/PSScriptAnalyzer
+          cd PSScriptAnalyzer/
+          .\build.ps1 -PSVersion 5
+          cd .\out\PSScriptAnalyzer\1.19.0\
+          ls
+          # Import-Module (Resolve-Path('PSScriptAnalyzer.psd1'))
       - name: PSScriptAnalyzer
         run: |
           Invoke-ScriptAnalyzer -Path . -Recurse -Setting .PSScriptAnalyzerSettings.psd1 -EnableExit
