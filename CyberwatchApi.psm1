@@ -461,7 +461,6 @@ Class CbwApiClient {
     }
 }
 
-
 function Get-CyberwatchApi
 {
 <#
